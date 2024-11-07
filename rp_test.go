@@ -42,11 +42,9 @@ func TestReverseProxy(t *testing.T) {
 
 func TestRewrite(t *testing.T) {
 	// Set up a rewrite function to send requests to a different target
-	target, _ := url.Parse("http://localhost:8081/baseurl")
+	target, _ := url.Parse("http://localhost:8081/baseurl/")
 	rewrite := func(pr *httputil.ProxyRequest) {
-		pr.Out.URL.Scheme = target.Scheme
-		pr.Out.URL.Host = target.Host
-		pr.Out.URL.Path = target.Path
+		pr.SetURL(target)
 		pr.Out.Host = target.Host
 	}
 

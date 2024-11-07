@@ -40,8 +40,7 @@ func intercept(forwardURL *url.URL, forbiddenPaths []string) func(*httputil.Prox
 			setInterceptHeaders(pr.Out, http.StatusForbidden, "Forbidden path\n")
 			return
 		}
-		pr.Out.URL.Scheme = forwardURL.Scheme
-		pr.Out.URL.Host = forwardURL.Host
+		pr.SetURL(forwardURL)
 		pr.Out.Host = forwardURL.Host
 	}
 }
